@@ -34,12 +34,6 @@ func New(pageTemplatesPath string, funcMap map[string]interface{}) (*ViewRendere
 
 // Render renders a template document
 func (tr *ViewRenderer) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-
-	// Add global methods if data is a map
-	if viewContext, isMap := data.(map[string]interface{}); isMap {
-		viewContext["reverse"] = c.Echo().Reverse
-	}
-
 	return tr.views[name].templates.ExecuteTemplate(w, "base", data)
 }
 
